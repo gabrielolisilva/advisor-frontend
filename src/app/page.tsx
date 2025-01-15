@@ -1,4 +1,25 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { repoGetCategories } from "./repositories/BackEndRepository";
+import { ICategories } from "./interfaces/globals.interfaces";
+
 const Home = () => {
+  const [categories, setCategories] = useState<ICategories[]>([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoriesResponse = await repoGetCategories();
+
+      if (categoriesResponse.success) {
+        const { data } = categoriesResponse;
+        setCategories(data);
+      }
+    };
+
+    getCategories();
+  }, []);
+
   return (
     <div>
       <header className="flex justify-between items-center w-full p-4">
@@ -26,24 +47,16 @@ const Home = () => {
       </header>
       <main className="flex flex-col items-center mt-14">
         <h1 className="text-4xl font-bold mb-4">Aonde você quer ir?</h1>
-        <div className="flex space-x-4 mb-8">
-          <button className="flex items-center gap-2">
-            <p className="text-black">Pesquisar tudo</p>
-          </button>
-          <button className="flex flex-col items-center">
-            <span className="text-black">Hotéis</span>
-          </button>
-          <button className="flex flex-col items-center">
-            <span className="text-black">O que fazer</span>
-          </button>
-          <button className="flex flex-col items-center">
-            <span className="text-black">Restaurantes</span>
-          </button>
-          <button className="flex flex-col items-center">
-            <span className="text-black">Voos</span>
-          </button>
-        </div>
-        <div className="flex items-center border rounded-full px-4 py-2 shadow-md w-3/5">
+        {categories.length > 0 && (
+          <div className="flex justify-center items-center gap-4">
+            {categories.map((category) => (
+              <button key={category.id} className="flex flex-col items-center">
+                <p className="text-black">{category.name}</p>
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex items-center border rounded-full px-4 py-2 shadow-md w-3/5 mt-5">
           <input
             type="text"
             placeholder="Lugares para ir, o que fazer, hotéis..."
