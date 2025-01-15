@@ -1,7 +1,17 @@
-export const respectiveCategoriesIcons = {
-  "Pesquisar tudo": "home",
-  Hotéis: "hotel",
-  "O que fazer": "activity",
-  Restaurantes: "restaurant",
-  Voos: "flight",
+import {
+  HomeIcon,
+  HomeModernIcon,
+  TicketIcon,
+  FireIcon,
+  GlobeAmericasIcon,
+} from "@heroicons/react/24/solid";
+
+export const respectiveCategoriesIcons: {
+  [key: string]: any;
+} = {
+  "Pesquisar tudo": HomeIcon,
+  Hotéis: HomeModernIcon,
+  "O que fazer": TicketIcon,
+  Restaurantes: FireIcon,
+  Voos: GlobeAmericasIcon,
 };

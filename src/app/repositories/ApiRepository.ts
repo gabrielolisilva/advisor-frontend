@@ -20,9 +20,9 @@ export default class ApiRepository {
       };
     } catch (err: any) {
       return {
-        data: err.response.data,
-        status: err.response.status,
-        statusText: err.response.statusText,
+        data: [],
+        status: 500,
+        statusText: err.message,
         success: false,
       };
     }
